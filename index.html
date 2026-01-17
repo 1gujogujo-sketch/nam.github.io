@@ -1,46 +1,13 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>H2 News</title>
-<style>
-  body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 20px; }
-  h1 { text-align: center; margin-bottom: 40px; }
-  #news { max-width: 800px; margin: 0 auto 40px auto; }
-  .loading { text-align: center; color: #777; font-size: 16px; }
-  .card { background: white; padding: 16px; margin-bottom: 16px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); transition: all 0.2s; }
-  .card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-  .date { font-size: 12px; color: #999; margin-bottom: 4px; }
-  a { color: #333; text-decoration: none; }
-  a:hover { color: #1a73e8; text-decoration: underline; }
-  @media (max-width: 600px) {
-    body { padding: 10px; }
-    #news { margin: 20px auto; }
-  }
-</style>
-</head>
-<body>
-
-<h1>📰 H2 News</h1>
-<div id="news">
-  <div class="loading">데이터 불러오는 중...</div>
-</div>
-
 <script>
-  // news.json 불러오기
-  fetch('./news.json')
+  fetch('news.json')
     .then(res => res.json())
     .then(data => {
-      const news = document.getElementById("news");
-      news.innerHTML = "";
-
-      // 날짜 기준 내림차순 정렬
+      const news = document.getElementById('news');
+      news.innerHTML = '';
       data.sort((a,b) => new Date(b.date) - new Date(a.date));
-
       data.forEach(item => {
-        const card = document.createElement("div");
-        card.className = "card";
+        const card = document.createElement('div');
+        card.className = 'card';
         card.innerHTML = `
           <div class="date">${item.date}</div>
           <h3><a href="${item.url}" target="_blank">${item.title}</a></h3>
@@ -48,11 +15,7 @@
         news.appendChild(card);
       });
     })
-    .catch(err => {
-      document.getElementById("news").innerHTML = "<div class='loading'>뉴스를 불러올 수 없습니다.</div>";
-      console.error(err);
+    .catch(() => {
+      document.getElementById('news').innerHTML = '<div class="loading">뉴스를 불러올 수 없습니다.</div>';
     });
 </script>
-
-</body>
-</html>
