@@ -1,38 +1,65 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>H2 News</title>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H2 News</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  #news {
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+  }
+  .loading {
+    text-align: center;
+    color: #777;
+    font-size: 16px;
+  }
+  .card {
+    background: white;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: all 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .date {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 4px;
+  }
+  a {
+    color: #333;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #1a73e8;
+    text-decoration: underline;
+  }
+
+  /* 모바일 최적화 */
+  @media (max-width: 600px) {
     body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      margin: 0;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
+      padding: 10px;
     }
     #news {
-      max-width: 800px;
-      margin: 40px auto;
+      margin: 20px auto;
     }
-    .loading {
-      text-align: center;
-      color: #777;
-    }
-    .card {
-      background: white;
-      padding: 16px;
-      margin-bottom: 16px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-    .date {
-      font-size: 12px;
-      color: #999;
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
@@ -43,23 +70,27 @@
 </div>
 
 <script>
-  // 임시 데이터 (나중에 실제 데이터로 교체)
+  // 실제 JSON 뉴스 데이터 예시
+  const newsData = [
+    { title: "수소 연료 전지, 세계 시장 주도", date: "2026-01-17", url: "https://example.com/news1" },
+    { title: "친환경 정책, 2026년 강화", date: "2026-01-16", url: "https://example.com/news2" },
+    { title: "글로벌 수소 기술 동향", date: "2026-01-15", url: "https://example.com/news3" }
+  ];
+
+  // 날짜 기준 내림차순 정렬 (최신 뉴스 위)
+  newsData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  // 1초 딜레이 후 뉴스 표시
   setTimeout(() => {
     const news = document.getElementById("news");
-    news.innerHTML = "";
+    news.innerHTML = ""; // "데이터 불러오는 중..." 제거
 
-    const sampleData = [
-      { title: "수소 에너지 기술 발전", date: "2026-01-15" },
-      { title: "친환경 정책 확대", date: "2026-01-14" },
-      { title: "글로벌 수소 시장 동향", date: "2026-01-13" }
-    ];
-
-    sampleData.forEach(item => {
+    newsData.forEach(item => {
       const card = document.createElement("div");
       card.className = "card";
       card.innerHTML = `
         <div class="date">${item.date}</div>
-        <h3>${item.title}</h3>
+        <h3><a href="${item.url}" target="_blank">${item.title}</a></h3>
       `;
       news.appendChild(card);
     });
@@ -68,3 +99,4 @@
 
 </body>
 </html>
+
