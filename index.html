@@ -1,21 +1,57 @@
-<script>
-  fetch('news.json')
-    .then(res => res.json())
-    .then(data => {
-      const news = document.getElementById('news');
-      news.innerHTML = '';
-      data.sort((a,b) => new Date(b.date) - new Date(a.date));
-      data.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <div class="date">${item.date}</div>
-          <h3><a href="${item.url}" target="_blank">${item.title}</a></h3>
-        `;
-        news.appendChild(card);
-      });
-    })
-    .catch(() => {
-      document.getElementById('news').innerHTML = '<div class="loading">뉴스를 불러올 수 없습니다.</div>';
-    });
-</script>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KHNP H2 News Archive</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <img src="assets/khnp_logo.png" alt="KHNP" class="logo" />
+    <div class="title-wrap">
+      <h1>KHNP H2 News Archive</h1>
+      <p class="subtitle">KHNP Hydrogen News</p>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h2>오늘의 핵심 키워드 TOP 3</h2>
+    <ul id="top-keywords" class="keywords"></ul>
+  </section>
+
+  <section class="controls">
+    <div class="control-row">
+      <label for="search">검색</label>
+      <input id="search" type="search" placeholder="제목, 내용, 태그로 검색" />
+    </div>
+    <div class="control-row">
+      <label for="date-from">날짜(시작)</label>
+      <input id="date-from" type="date" />
+      <label for="date-to">날짜(끝)</label>
+      <input id="date-to" type="date" />
+    </div>
+    <div class="control-row">
+      <label>태그</label>
+      <div id="tag-list" class="tags"></div>
+    </div>
+    <div class="control-row">
+      <button id="reset">초기화</button>
+    </div>
+  </section>
+
+  <main>
+    <div id="results-count" class="results-count"></div>
+    <div id="cards" class="grid"></div>
+    <nav id="pagination" class="pagination"></nav>
+  </main>
+
+  <footer class="site-footer">
+    <small>© KHNP H2 News Archive</small>
+  </footer>
+
+  <script src="js/libs/dayjs.min.js"></script>
+  <script src="js/libs/fuse.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
