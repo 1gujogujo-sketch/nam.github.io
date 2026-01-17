@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>H2 News</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    #news {
+      max-width: 800px;
+      margin: 40px auto;
+    }
+    .loading {
+      text-align: center;
+      color: #777;
+    }
+    .card {
+      background: white;
+      padding: 16px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .date {
+      font-size: 12px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+<h1>📰 H2 News</h1>
+
+<div id="news">
+  <div class="loading">데이터 불러오는 중...</div>
+</div>
+
+<script>
+  // 임시 데이터 (나중에 실제 데이터로 교체)
+  setTimeout(() => {
+    const news = document.getElementById("news");
+    news.innerHTML = "";
+
+    const sampleData = [
+      { title: "수소 에너지 기술 발전", date: "2026-01-15" },
+      { title: "친환경 정책 확대", date: "2026-01-14" },
+      { title: "글로벌 수소 시장 동향", date: "2026-01-13" }
+    ];
+
+    sampleData.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="date">${item.date}</div>
+        <h3>${item.title}</h3>
+      `;
+      news.appendChild(card);
+    });
+  }, 1000);
+</script>
+
+</body>
+</html>
